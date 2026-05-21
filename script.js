@@ -43,7 +43,7 @@ function prevSlide() {
 // EVENTO LISTENERS PARA BOTONES DEL SLIDER
 // ============================================
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const nextBtn = document.getElementById('nextBtn');
     const prevBtn = document.getElementById('prevBtn');
 
@@ -70,6 +70,28 @@ document.addEventListener('DOMContentLoaded', function() {
     // ANIMACIÓN AL CARGAR LA PÁGINA
     // ========================================
     animateOnLoad();
+    // ========================================
+    // MENÚ HAMBURGUESA INTERACTIVO
+    // ========================================
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const navMenu = document.getElementById('nav-menu');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    if (hamburgerBtn && navMenu) {
+        // Alternar menú al dar click en la hamburguesa
+        hamburgerBtn.addEventListener('click', function () {
+            hamburgerBtn.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Cerrar el menú automáticamente cuando se da click en una opción
+        navLinks.forEach(link => {
+            link.addEventListener('click', function () {
+                hamburgerBtn.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+    }
 });
 
 // ============================================
@@ -119,9 +141,9 @@ function animateOnLoad() {
 // ============================================
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
+    anchor.addEventListener('click', function (e) {
         const href = this.getAttribute('href');
-        
+
         // No prevenir el comportamiento por defecto si es un enlace de control del slider
         if (href === '#' || this.classList.contains('slider-btn')) {
             return;
